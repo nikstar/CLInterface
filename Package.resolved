@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "llbuild",
+        "repositoryURL": "https://github.com/apple/swift-llbuild.git",
+        "state": {
+          "branch": "master",
+          "revision": "7fe78e2af79a753cd5133ba792d4167bfeff34c1",
+          "version": null
+        }
+      },
+      {
+        "package": "SwiftPM",
+        "repositoryURL": "https://github.com/apple/swift-package-manager.git",
+        "state": {
+          "branch": "master",
+          "revision": "7ab2275f447a5eb37497ed63a9340f8a6d1e488b",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}

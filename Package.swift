@@ -16,5 +16,6 @@ let package = Package(
         .target(
             name: "CLInterface",
             dependencies: ["SPMUtility"]),
+        .target(name: "TestTool", dependencies: ["CLInterface"])
     ]
 )

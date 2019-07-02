@@ -18,5 +18,5 @@ tool.parseArguments(["--output", "main.swift", "-v=true", "file1", "file2"])
 //tool.parseArguments(["--help"])
 
 print(tool.outputPath as Any)
-print(tool.verbose!)
+print(tool.verbose)
 print(tool.files)

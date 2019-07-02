@@ -18,6 +18,10 @@ public extension CLInterface {
             Mirror.reflectProperties(of: self, matchingType: Argument<T>.self) { arg in
                 arg.handle = argumentParser.add(option: arg.longName, shortName: arg.shortName, kind: T.self, usage: arg.usage)
             }
+            Mirror.reflectProperties(of: self, matchingType: PositionalArguments<T>.self) { arg in
+                arg.handle = argumentParser.add(positional: arg.name, kind: [T].self, optional: true, usage: arg.usage)
+            }
+            
         }
         setHandle(ofType: String.self)
         setHandle(ofType: Bool.self)
@@ -26,6 +30,9 @@ public extension CLInterface {
         
         func setResult<T : ArgumentKind>(ofType type: T.Type) {
             Mirror.reflectProperties(of: self, matchingType: Argument<T>.self) { argument in
+                argument.parseResult = result
+            }
+            Mirror.reflectProperties(of: self, matchingType: PositionalArguments<T>.self) { argument in
                 argument.parseResult = result
             }
         }

@@ -1,3 +1,3 @@
 # CLInterface
 
-A description of this package.
+Swift 5.1 era argument parser

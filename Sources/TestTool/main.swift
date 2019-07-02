@@ -1,21 +1,22 @@
 
 import CLInterface
 
-struct Tool: CLInterface {
-    var description = "This custom tool does things"
-    var optionsString = "<options>"
+final class Swiftc : CLInterface {
+    var description = "Swift compiler"
     
-    @Argument("--output", usage: "Output path") var outputPath: String?
-    @Argument("--verbose", "-v", usage: "Verbose output", default: false) var verbose: Bool
-
-    @PositionalArguments(name: "files", usage: "files files files")
+    @Argument("--output", "-o", usage: "Write output to <file>")
+    var outputPath: String?
+    
+    @Argument("-g", usage: "Emit debug info", default: false)
+    var debugMode: Bool
+    
+    @PositionalArguments(name: "files", usage: "Files that will be compiled")
     var files: [String]
 }
 
-let tool = Tool()
-tool.parseArguments(["--output", "main.swift", "-v=true", "file1", "file2"])
-//tool.parseArguments(["--help"])
+let swiftc = Swiftc()
+swiftc.parseArguments(["-o", "hello", "-g", "main.swift", "Greeter.swift"])
 
-print(tool.outputPath as Any)
-print(tool.verbose)
-print(tool.files)
+print(swiftc.outputPath as Any)
+print(swiftc.debugMode!)
+print(swiftc.files)

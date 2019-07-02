@@ -5,7 +5,7 @@ import SPMUtility
 /// - Example:
 ///
 /// ```swift
-/// final class Swiftc : CLInteface {
+/// final class Swiftc : CLInterface {
 ///     var description = "Swift compiler"
 ///
 ///     @Argument("--output", "-o", usage: "Write output to <file>")
@@ -14,7 +14,7 @@ import SPMUtility
 ///     @Argument("-g", usage: "Emit debug info", default: false)
 ///     var debugMode: Bool
 ///
-///     @PositionArguments(name: "files", usage: "Files that will be compiled")
+///     @PositionalArguments(name: "files", usage: "Files that will be compiled")
 ///     var files: [String]
 /// }
 /// ```

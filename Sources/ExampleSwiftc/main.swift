@@ -1,4 +1,4 @@
-
+import Foundation
 import CLInterface
 
 final class Swiftc : CLInterface {
@@ -14,9 +14,16 @@ final class Swiftc : CLInterface {
     var files: [String]
 }
 
-let swiftc = Swiftc()
-swiftc.parseArguments(["-o", "hello", "-g", "main.swift", "Greeter.swift"])
+do {
+    let swiftc = Swiftc()
+//    try swiftc.parseArguments(["-o", "hello", "-g", "main.swift", "Greeter.swift"])
+    try swiftc.parseArguments(["-h"])
+//    try swiftc.parseArguments(["--wrong"])
 
-print(swiftc.outputPath as Any)
-print(swiftc.debugMode!)
-print(swiftc.files)
+    print(swiftc.outputPath as Any)
+    print(swiftc.debugMode!)
+    print(swiftc.files)
+} catch {
+    print(error.localizedDescription)
+    exit(1)
+}

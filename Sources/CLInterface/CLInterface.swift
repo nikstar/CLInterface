@@ -25,6 +25,7 @@ public extension CLInterface {
         }
         setHandle(ofType: String.self)
         setHandle(ofType: Bool.self)
+        setHandle(ofType: Int.self)
         
         let result = try! argumentParser.parse(args)
         
@@ -38,5 +39,6 @@ public extension CLInterface {
         }
         setResult(ofType: String.self)
         setResult(ofType: Bool.self)
+        setHandle(ofType: Int.self)
     }
 }

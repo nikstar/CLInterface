@@ -1,6 +1,5 @@
 
 public protocol ArgumentType {}
-
 public protocol BaseArgumentType : ArgumentType {}
 
 extension String : BaseArgumentType {}

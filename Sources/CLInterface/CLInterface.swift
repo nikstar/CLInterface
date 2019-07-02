@@ -31,7 +31,7 @@ public extension CLInterface {
 
 
 public extension CLInterface {
-    func parseArguments(_ args: [String]) {
+    func parseArguments(_ args: [String]) throws {
         let argumentParser = ArgumentParser(usage: optionsString, overview: description)
         
         func setHandle<T : ArgumentKind & BaseArgumentType>(ofType type: T.Type) {
@@ -47,7 +47,7 @@ public extension CLInterface {
         setHandle(ofType: Bool.self)
         setHandle(ofType: Int.self)
         
-        let result = try! argumentParser.parse(args)
+        let result = try argumentParser.parse(args)
         
         func setResult<T : ArgumentKind & BaseArgumentType>(ofType type: T.Type) {
             Mirror.reflectProperties(of: self, matchingType: Argument<T>.self) { argument in

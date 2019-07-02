@@ -5,8 +5,8 @@ public protocol CLInterface {
     var optionsString: String { get }
 }
 
-extension CLInterface {
-    var optionsString: String { "[ options ]" }
+public extension CLInterface {
+    var optionsString: String { "" }
 }
 
 

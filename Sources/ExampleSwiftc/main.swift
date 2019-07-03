@@ -17,8 +17,9 @@ final class Swiftc : CLInterface {
 do {
     let swiftc = Swiftc()
 //    try swiftc.parseArguments(["-o", "hello", "-g", "main.swift", "Greeter.swift"])
-    try swiftc.parseArguments(["-h"])
+//    try swiftc.parseArguments(["-h"])
 //    try swiftc.parseArguments(["--wrong"])
+    try swiftc.parseArguments([])
 
     print(swiftc.outputPath as Any)
     print(swiftc.debugMode!)

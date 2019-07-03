@@ -61,6 +61,6 @@ public extension CLInterface {
         }
         setResult(ofType: String.self)
         setResult(ofType: Bool.self)
-        setHandle(ofType: Int.self)
+        setResult(ofType: Int.self)
     }
 }

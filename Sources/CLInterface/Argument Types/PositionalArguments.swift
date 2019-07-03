@@ -1,9 +1,9 @@
 import SPMUtility
 
-@propertyDelegate
+@propertyWrapper
 public final class PositionalArguments<T : BaseArgumentType> {
     
-    public var value: [T] {
+    public var wrappedValue: [T] {
         if let handle = handle, let v = parseResult?.get(handle) {
             return v
         }

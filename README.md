@@ -11,6 +11,10 @@ Use Swift package manager to add to your project:
 
 **This is work in progress. PRs and suggestions are welcome!**
 
+Possible improvements:
++ [ ] add default value information to `--help` output
++ [ ] optional and required arguments (required arguments will throw at `parseArguments`)
+
 ## Example
 
 ```swift

@@ -1,4 +1,6 @@
 
+// These types will be needed to implement non-optional arguments
+
 public protocol ArgumentType {}
 public protocol BaseArgumentType : ArgumentType {}
 

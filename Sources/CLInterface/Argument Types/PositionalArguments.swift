@@ -4,8 +4,11 @@ import SPMUtility
 public final class PositionalArguments<T : BaseArgumentType> {
     
     public var wrappedValue: [T] {
-        if let handle = handle, let v = parseResult?.get(handle) {
-            return v
+        guard let handle = handle, let parseResult = parseResult else {
+            fatalError("Argument parser result is unavailable. Did you call `parseArguments`?")
+        }
+        if let value = parseResult.get(handle) {
+            return value
         }
         return `default` ?? []
     }

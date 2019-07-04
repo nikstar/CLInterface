@@ -1,12 +1,21 @@
+import SPMUtility
 
-// These types will be needed to implement non-optional arguments
+public protocol ArgumentType {
+    associatedtype ArgumentParserType : BaseArgumentType & ArgumentKind
+}
+public protocol BaseArgumentType : ArgumentType & ArgumentKind {}
 
-public protocol ArgumentType {}
-public protocol BaseArgumentType : ArgumentType {}
+extension String : BaseArgumentType {
+    public typealias ArgumentParserType = Self
+}
+extension Int : BaseArgumentType {
+    public typealias ArgumentParserType = Self
+}
+extension Bool : BaseArgumentType {
+    public typealias ArgumentParserType = Self
+}
 
-extension String : BaseArgumentType {}
-extension Int : BaseArgumentType {}
-extension Bool : BaseArgumentType {}
-
-extension Optional : ArgumentType where Wrapped : BaseArgumentType {}
+extension Optional : ArgumentType where Wrapped : BaseArgumentType {
+    public typealias ArgumentParserType = Wrapped
+}
 

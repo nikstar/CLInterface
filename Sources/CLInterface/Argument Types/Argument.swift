@@ -1,16 +1,24 @@
+import Foundation
 import SPMUtility
 
 @propertyWrapper
 public final class Argument<T : ArgumentType> {
     
-    public var wrappedValue: T? {
+    public var wrappedValue: T {
         guard let handle = handle, let parseResult = parseResult else {
             fatalError("Argument parser result is unavailable. Did you call `parseArguments`?")
         }
-        if let value = parseResult.get(handle) {
-            return value
+        if let value = parseResult.get(handle){
+            return value as! T
         }
-        return `default`
+        if let `default` = `default` {
+            return `default`
+        }
+        if isOptional {
+            return Optional<T.ArgumentParserType>.none as! T
+        }
+        print("error: missing required argument: \(longName)")
+        exit(1)
     }
     
     public let longName: String
@@ -18,7 +26,9 @@ public final class Argument<T : ArgumentType> {
     public let usage: String?
     public let `default`: T?
     
-    var handle: OptionArgument<T>?
+    private var isOptional: Bool { T.self == Optional<T.ArgumentParserType>.self }
+    
+    var handle: OptionArgument<T.ArgumentParserType>?
     var parseResult: ArgumentParser.Result?
     
     /// Property wrapper representing a single argument. Can be used like a normal variable after a call to `parseArguments`. Return value is always optional, but can be safely unwrapped if you provide a default value
@@ -33,3 +43,4 @@ public final class Argument<T : ArgumentType> {
         self.default = `default`
     }
 }
+

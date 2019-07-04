@@ -36,11 +36,9 @@ public extension CLInterface {
         
         func setHandle<T : ArgumentKind & BaseArgumentType>(ofType type: T.Type) {
             Mirror.reflectProperties(of: self, matchingType: Argument<T>.self) { arg in
-                guard arg.handle == nil else { return } // FIXME: workaround for potential issue: sometimes this gets called twice, causing a crash
                 arg.handle = argumentParser.add(option: arg.longName, shortName: arg.shortName, kind: T.self, usage: arg.usage)
             }
             Mirror.reflectProperties(of: self, matchingType: PositionalArguments<T>.self) { arg in
-                guard arg.handle == nil else { return } // FIXME: workaround for potential issue: sometimes this gets called twice, causing a crash
                 arg.handle = argumentParser.add(positional: arg.name, kind: [T].self, optional: true, usage: arg.usage)
             }
             

@@ -5,8 +5,8 @@ import SPMUtility
 public final class Argument<T : ArgumentType> {
     
     public var wrappedValue: T {
-        guard let handle = handle, let parseResult = parseResult else {
-            fatalError("Argument parser result is unavailable. Did you call `parseArguments`?")
+        guard let handle = handle, let parseResult = parseResult, !missingRequiredArgument else {
+            fatalError("required components unavailable; looks like `parseArguments` was not called")
         }
         if let value = parseResult.get(handle){
             return value as! T
@@ -17,8 +17,7 @@ public final class Argument<T : ArgumentType> {
         if isOptional {
             return Optional<T.BaseType>.none as! T
         }
-        print("error: missing required argument: \(longName)")
-        exit(1)
+        fatalError("logical error; please file a bug at https://github.com/nikstar/CLInterface")
     }
     
     public let longName: String

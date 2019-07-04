@@ -24,13 +24,12 @@ do {
 //    try swiftc.parseArguments(["-o", "hello", "-v", "9000", "-g", "main.swift", "Greeter.swift"])
 
     // runs successfully; outputPath == nil
-//    try swiftc.parseArguments(["-v", "9000", "-g", "main.swift", "Greeter.swift"])
+    try swiftc.parseArguments(["-v", "9000", "-g", "main.swift", "Greeter.swift"])
 
-    // runs successfully; -g uses default value
-    try swiftc.parseArguments(["-o", "hello", "-v", "9000", "main.swift", "Greeter.swift"])
+    // runs successfully; -g uses default value (false)
+//    try swiftc.parseArguments(["-o", "hello", "-v", "9000", "main.swift", "Greeter.swift"])
     
-    // missing --verboseness (-v); will exit(1) when verboseness is accessed
-    // TODO: this should throw at parseArguments
+    // missing --verboseness (-v); will throw an error
 //    try swiftc.parseArguments(["-o", "hello", "-g", "main.swift", "Greeter.swift"])
     
 //    try swiftc.parseArguments(["-h"])

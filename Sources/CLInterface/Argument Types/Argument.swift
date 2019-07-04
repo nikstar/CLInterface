@@ -15,7 +15,7 @@ public final class Argument<T : ArgumentType> {
             return `default`
         }
         if isOptional {
-            return Optional<T.ArgumentParserType>.none as! T
+            return Optional<T.BaseType>.none as! T
         }
         print("error: missing required argument: \(longName)")
         exit(1)
@@ -26,14 +26,18 @@ public final class Argument<T : ArgumentType> {
     public let usage: String?
     public let `default`: T?
     
-    private var isOptional: Bool { T.self == Optional<T.ArgumentParserType>.self }
+    private var isOptional: Bool { T.self == Optional<T.BaseType>.self }
+    var missingRequiredArgument: Bool {
+        guard let handle = handle, let parseResult = parseResult else { fatalError("Argument parser result is nil") }
+        return !isOptional && parseResult.get(handle) == nil && `default` == nil
+    }
     
-    var handle: OptionArgument<T.ArgumentParserType>?
+    var handle: OptionArgument<T.BaseType>?
     var parseResult: ArgumentParser.Result?
     
-    /// Property wrapper representing a single argument. Can be used like a normal variable after a call to `parseArguments`. Return value is always optional, but can be safely unwrapped if you provide a default value
+    /// Property wrapper representing a single argument. Can be used like a normal variable after a call to `parseArguments`.
     /// - Parameter longName: Name for your option, e.g. "--output"
-    /// - Parameter shortName: Alternative short name, e.g. "-g"
+    /// - Parameter shortName: Alternative short name, e.g. "-o"
     /// - Parameter usage: Usage string, describing what this argument does. Shown to user in `--help` menu. If omitted, it won't be shown there
     /// - Parameter default: Optional default value. If provided, it is safe to unwrap this property
     public init(_ longName: String, _ shortName: String? = nil, usage: String? = nil, default: T? = nil) {

@@ -1,21 +1,21 @@
 import SPMUtility
 
 public protocol ArgumentType {
-    associatedtype ArgumentParserType : BaseArgumentType & ArgumentKind
+    associatedtype BaseType : BaseArgumentType & ArgumentKind
 }
 public protocol BaseArgumentType : ArgumentType & ArgumentKind {}
 
 extension String : BaseArgumentType {
-    public typealias ArgumentParserType = Self
+    public typealias BaseType = Self
 }
 extension Int : BaseArgumentType {
-    public typealias ArgumentParserType = Self
+    public typealias BaseType = Self
 }
 extension Bool : BaseArgumentType {
-    public typealias ArgumentParserType = Self
+    public typealias BaseType = Self
 }
 
 extension Optional : ArgumentType where Wrapped : BaseArgumentType {
-    public typealias ArgumentParserType = Wrapped
+    public typealias BaseType = Wrapped
 }
 

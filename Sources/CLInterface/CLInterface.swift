@@ -31,6 +31,11 @@ public extension CLInterface {
 
 
 public extension CLInterface {
+    func parseArguments() throws {
+        let args = Array(CommandLine.arguments.dropFirst())
+        try parseArguments(args)
+    }
+    
     func parseArguments(_ args: [String]) throws {
         let argumentParser = ArgumentParser(usage: optionsString, overview: description)
         setArgumentParserHandlesOnProperties(argumentParser)

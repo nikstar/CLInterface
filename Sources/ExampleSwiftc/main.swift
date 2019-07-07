@@ -38,7 +38,7 @@ do {
 
     print(swiftc.outputPath as Any) // optional, no default
     print(swiftc.debugMode) // non-optional, default
-    print(swiftc.verboseness) // non-optional, no default (will crash)
+    print(swiftc.verboseness) // non-optional, no default
     print(swiftc.files)
 } catch {
     print(error.localizedDescription)

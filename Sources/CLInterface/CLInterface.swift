@@ -31,12 +31,8 @@ public extension CLInterface {
 
 
 public extension CLInterface {
-    func parseArguments() throws {
-        let args = Array(CommandLine.arguments.dropFirst())
-        try parseArguments(args)
-    }
-    
-    func parseArguments(_ args: [String]) throws {
+    func parseArguments(_ args: [String]? = nil) throws {
+        let args = args ?? CommandLine.argumentsWithoutExecutable
         let argumentParser = ArgumentParser(usage: optionsString, overview: description)
         setArgumentParserHandlesOnProperties(argumentParser)
         let result = try argumentParser.parse(args)

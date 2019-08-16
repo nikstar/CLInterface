@@ -14,7 +14,7 @@ Both optional and required arguments are supported. Use `default:` and optional 
 
 Use Swift package manager to add to your project: 
 ```swift
-        .package(url: "https://github.com/nikstar/CLInterface.git", .branch("master")),
+        .package(url: "https://github.com/nikstar/CLInterface.git", from: "1.0.0"),
 ```
 
 **This is work in progress. PRs and suggestions are welcome!**

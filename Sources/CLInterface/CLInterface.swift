@@ -1,6 +1,6 @@
 import SPMUtility
 
-/// `CLInterface` protocol should be implemented by a class or a struct that will represent command line interface of your program. Apart from required `description` property, it should contain `@Argument` and `@PositionalArguments` properties for any arguments you want. They will be set automatically after you call `parseArguments`.
+/// `CLInterface` protocol should be implemented by a class or a struct that will represent command line interface of your program. Apart from required `description` property, it should contain `@Argument` and `@PositionalArgument` properties for any arguments you want. They will be set automatically after you call `parseArguments`.
 ///
 /// - Example:
 ///
@@ -14,7 +14,7 @@ import SPMUtility
 ///     @Argument("-g", usage: "Emit debug info", default: false)
 ///     var debugMode: Bool
 ///
-///     @PositionalArguments(name: "files", usage: "Files that will be compiled")
+///     @PositionalArgument(name: "files", usage: "Files that will be compiled")
 ///     var files: [String]
 /// }
 /// ```
@@ -52,7 +52,7 @@ public extension CLInterface {
             Mirror.reflectProperties(of: self, matchingType: Argument<Optional<T>>.self) { arg in
                 arg.register(with: argumentParser)
             }
-            Mirror.reflectProperties(of: self, matchingType: PositionalArguments<T>.self) { arg in
+            Mirror.reflectProperties(of: self, matchingType: PositionalArgument<T>.self) { arg in
                 arg.handle = argumentParser.add(positional: arg.name, kind: [T].self, optional: true, usage: arg.usage)
             }
         }
@@ -70,7 +70,7 @@ public extension CLInterface {
             try Mirror.reflectProperties(of: self, matchingType: Argument<Optional<T>>.self) { argument in
                 try argument.parseResult(result)
             }
-            Mirror.reflectProperties(of: self, matchingType: PositionalArguments<T.Base>.self) { argument in
+            Mirror.reflectProperties(of: self, matchingType: PositionalArgument<T.Base>.self) { argument in
                 argument.parseResult = result
             }
         }

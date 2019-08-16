@@ -13,7 +13,7 @@ final class Swiftc : CLInterface {
     @Argument("--verboseness", "-v", usage: "How verbose do you want output to be?")
     var verboseness: Int
     
-    @PositionalArguments(name: "files", usage: "Files that will be compiled")
+    @PositionalArgument(name: "files", usage: "Files that will be compiled")
     var files: [String]
 }
 

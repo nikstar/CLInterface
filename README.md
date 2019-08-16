@@ -2,7 +2,7 @@
 
 Swift 5.1 era argument parser
 
-`CLInterface` protocol should be implemented by a class or a struct that will represent command line interface of your program. Apart from required `description` property, it should contain `@Argument` and `@PositionalArguments` properties for any arguments you want. They will be set automatically after you call `parseArguments`.
+`CLInterface` protocol should be implemented by a class or a struct that will represent command line interface of your program. Apart from required `description` property, it should contain `@Argument` and `@PositionalArgument` properties for any arguments you want. They will be set automatically after you call `parseArguments`.
 
 Both optional and required arguments are supported. Use `default:` and optional properies to get the behavior you want. (For example, non-optional property without default value will throw error at `parseArguments` call.)
 
@@ -25,7 +25,7 @@ final class Swiftc : CLInterface {
     @Argument("-g", usage: "Emit debug info", default: false)
     var debugMode: Bool
     
-    @PositionalArguments(name: "files", usage: "Files that will be compiled")
+    @PositionalArgument(name: "files", usage: "Files that will be compiled")
     var files: [String]
 }
 ```

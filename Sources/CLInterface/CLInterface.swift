@@ -33,57 +33,49 @@ public extension CLInterface {
 public extension CLInterface {
     func parseArguments(_ args: [String]? = nil) throws {
         let args = args ?? CommandLine.argumentsWithoutExecutable
-        let argumentParser = ArgumentParser(usage: optionsString, overview: description)
-        setArgumentParserHandlesOnProperties(argumentParser)
-        let result = try argumentParser.parse(args)
-        setArgumentParserResultOnProperties(result)
-        try verifyNoRequiredArgumentsAreMissing()
+        try _parseArguments(args)
     }
     
-    fileprivate func setArgumentParserHandlesOnProperties(_ argumentParser: ArgumentParser) {
-        func setNonoptionalHandles<T : BaseArgumentType>(ofType type: T.Type) {
+    fileprivate func _parseArguments(_ args: [String]) throws {
+        let argumentParser = ArgumentParser(usage: optionsString, overview: description)
+        registerArguments(argumentParser)
+        let result = try argumentParser.parse(args)
+        try setArgumentParserResultOnProperties(result)
+    }
+    
+    fileprivate func registerArguments(_ argumentParser: ArgumentParser) {
+        
+        func setHandles<T: BaseArgumentType>(ofType: T.Type) {
             Mirror.reflectProperties(of: self, matchingType: Argument<T>.self) { arg in
-                // TODO: this should be T, not T.BaseType
-                arg.handle = argumentParser.add(option: arg.longName, shortName: arg.shortName, kind: T.BaseType.self, usage: arg.usage)
+                arg.register(with: argumentParser)
+            }
+            Mirror.reflectProperties(of: self, matchingType: Argument<Optional<T>>.self) { arg in
+                arg.register(with: argumentParser)
             }
             Mirror.reflectProperties(of: self, matchingType: PositionalArguments<T>.self) { arg in
                 arg.handle = argumentParser.add(positional: arg.name, kind: [T].self, optional: true, usage: arg.usage)
             }
         }
-        func setOptionalHandles<T : ArgumentType>(ofType type: T.Type) {
-            Mirror.reflectProperties(of: self, matchingType: Argument<T>.self) { arg in
-                arg.handle = argumentParser.add(option: arg.longName, shortName: arg.shortName, kind: T.BaseType.self, usage: arg.usage)
-            }
-        }
-        setNonoptionalHandles(ofType: String.self); setOptionalHandles(ofType: Optional<String>.self)
-        setNonoptionalHandles(ofType: Bool.self);   setOptionalHandles(ofType: Optional<Bool>.self)
-        setNonoptionalHandles(ofType: Int.self);    setOptionalHandles(ofType: Optional<Int>.self)
+        setHandles(ofType: String.self)
+        setHandles(ofType: Bool.self)
+        setHandles(ofType: Int.self)
     }
     
-    fileprivate func setArgumentParserResultOnProperties(_ result: ArgumentParser.Result) {
-        func setResult<T : ArgumentType>(ofType type: T.Type) {
-            Mirror.reflectProperties(of: self, matchingType: Argument<T>.self) { argument in
-                argument.parseResult = result
-            }
-            Mirror.reflectProperties(of: self, matchingType: PositionalArguments<T.BaseType>.self) { argument in
-                argument.parseResult = result
-            }
-        }
-        setResult(ofType: String.self); setResult(ofType: Optional<String>.self)
-        setResult(ofType: Bool.self);   setResult(ofType: Optional<Bool>.self)
-        setResult(ofType: Int.self);    setResult(ofType: Optional<Int>.self)
-    }
-    
-    fileprivate func verifyNoRequiredArgumentsAreMissing() throws {
-        func verify<T : ArgumentType>(ofType type: T.Type) throws {
+    fileprivate func setArgumentParserResultOnProperties(_ result: ArgumentParser.Result) throws {
+        
+        func setResult<T: BaseArgumentType>(ofType type: T.Type) throws {
             try Mirror.reflectProperties(of: self, matchingType: Argument<T>.self) { argument in
-                if argument.missingRequiredArgument {
-                    throw CLInterfaceError.missingRequiredArgument(name: argument.longName)
-                }
+                try argument.parseResult(result)
+            }
+            try Mirror.reflectProperties(of: self, matchingType: Argument<Optional<T>>.self) { argument in
+                try argument.parseResult(result)
+            }
+            Mirror.reflectProperties(of: self, matchingType: PositionalArguments<T.Base>.self) { argument in
+                argument.parseResult = result
             }
         }
-        try verify(ofType: String.self); try verify(ofType: Optional<String>.self)
-        try verify(ofType: Bool.self);   try verify(ofType: Optional<Bool>.self)
-        try verify(ofType: Int.self);    try verify(ofType: Optional<Int>.self)
+        try setResult(ofType: String.self)
+        try setResult(ofType: Bool.self)
+        try setResult(ofType: Int.self)
     }
 }

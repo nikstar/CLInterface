@@ -1,4 +1,4 @@
-import protocol SPMUtility.ArgumentKind
+import SPMUtility
 
 // Argument type is on of the types that can be represented by Argument (String, Int, or Bool, optional or not)
 public protocol ArgumentType {
@@ -24,3 +24,12 @@ extension Bool : BaseArgumentType {
 extension Optional: ArgumentType where Wrapped: BaseArgumentType {
     public typealias Base = Wrapped
 }
+
+
+// ArgumentProtocol is internal protocol to simplify work with reflection
+protocol ArgumentProtocol {
+    func register(with argumentParser: ArgumentParser)
+    func parseResult(_ argumentParserResult: ArgumentParser.Result) throws
+}
+extension Argument: ArgumentProtocol { }
+extension PositionalArgument: ArgumentProtocol { }

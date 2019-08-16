@@ -55,4 +55,4 @@ POSITIONAL ARGUMENTS:
 files          Files that will be compiled
 ```
 
-See `ExampleSwiftc` for working example.
+See [`ExampleSwiftc`](Sources/ExampleSwiftc/main.swift) for working example.

@@ -1,5 +1,5 @@
 import Foundation
-import SPMUtility
+import SPMArgumentParser
 
 @propertyWrapper
 public final class Argument<T : ArgumentType> {

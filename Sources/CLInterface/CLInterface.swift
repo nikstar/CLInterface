@@ -1,4 +1,4 @@
-import SPMUtility
+import SPMArgumentParser
 
 /// `CLInterface` protocol should be implemented by a class or a struct that will represent command line interface of your program. Apart from required `description` property, it should contain `@Argument` and `@PositionalArgument` properties for any arguments you want. They will be set automatically after you call `parseArguments`.
 ///

@@ -1,11 +1,11 @@
-import SPMUtility
+import SPMArgumentParser
 
 @propertyWrapper
 public final class PositionalArgument<T: BaseArgumentType> {
     
     enum State {
         case notRegistered
-        case registered(SPMUtility.PositionalArgument<[T]>)
+        case registered(SPMArgumentParser.PositionalArgument<[T]>)
         case parsed([T])
     }
     

@@ -10,12 +10,12 @@ let package = Package(
             targets: ["CLInterface"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-package-manager.git", .revision("7c83067f93e414ffa225b033d34640d5bc1bad0e")),
+        .package(url: "https://github.com/nikstar/spm-argument-parser.git", from: "0.5.0"),
     ],
     targets: [
         .target(
             name: "CLInterface",
-            dependencies: ["SPMUtility"]),
+            dependencies: ["SPMArgumentParser"]),
         .target(name: "ExampleSwiftc", dependencies: ["CLInterface"])
     ]
 )

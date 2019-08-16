@@ -1,24 +1,26 @@
 import SPMUtility
 
 @propertyWrapper
-public final class PositionalArgument<T : BaseArgumentType> {
+public final class PositionalArgument<T: BaseArgumentType> {
+    
+    enum State {
+        case notRegistered
+        case registered(SPMUtility.PositionalArgument<[T]>)
+        case parsed([T])
+    }
     
     public var wrappedValue: [T] {
-        guard let handle = handle, let parseResult = parseResult else {
-            fatalError("Argument parser result is unavailable. Did you call `parseArguments`?")
+        guard case .parsed(let value) = state else {
+            fatalError("parseArguments was not called")
         }
-        if let value = parseResult.get(handle) {
-            return value
-        }
-        return `default` ?? []
+        return value
     }
     
     public let name: String
     public let usage: String?
-    public let `default`: [T]?
+    public let `default`: [T]
     
-    var handle: PositionalArgument<[T]>?
-    var parseResult: ArgumentParser.Result?
+    fileprivate var state: State = .notRegistered
     
     /// Property wrapper representing positional arguments, e.g input files. Can be used like a normal variable after a call to `parseArguments`. Defaults to empty array.
     /// - Parameter name: Shown in `--help` menu, e.g. "files"
@@ -27,7 +29,20 @@ public final class PositionalArgument<T : BaseArgumentType> {
     public init(name: String, usage: String? = nil, default: [T]? = nil) {
         self.name = name
         self.usage = usage
-        self.default = `default`
+        self.default = `default` ?? []
     }
+    
+    func register(with argumentParser: ArgumentParser) {
+        guard case .notRegistered = state else { fatalError("wrong state: expected notRegistered, got \(state)") }
+        let handle = argumentParser.add(positional: name, kind: [T].self, optional: true, usage: usage)
+        state = .registered(handle)
+    }
+    
+    func parseResult(_ argumentParserResult: ArgumentParser.Result) {
+        guard case .registered(let handle) = state else { fatalError("wrong state: expected registered, got \(state)") }
+        let value = argumentParserResult.get(handle) ?? `default`
+        state = .parsed(value)
+    }
+
 }
 

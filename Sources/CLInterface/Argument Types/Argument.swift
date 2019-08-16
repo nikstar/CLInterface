@@ -54,13 +54,13 @@ public final class Argument<T : ArgumentType> {
     }
     
     func register(with argumentParser: ArgumentParser) {
-        guard case .notRegistered = state else { fatalError("wrong mode: expected notRegistered, got \(mode)") }
+        guard case .notRegistered = state else { fatalError("wrong state: expected notRegistered, got \(state)") }
         let handle = argumentParser.add(option: longName, shortName: shortName, kind: T.Base.self, usage: usage)
         state = .registered(handle)
     }
     
     func parseResult(_ argumentParserResult: ArgumentParser.Result) throws {
-        guard case .registered(let handle) = state else { fatalError("wrong mode: expected registered, got \(mode)") }
+        guard case .registered(let handle) = state else { fatalError("wrong state: expected registered, got \(state)") }
         var parsedValue = argumentParserResult.get(handle)
         if parsedValue == nil {
             switch mode {

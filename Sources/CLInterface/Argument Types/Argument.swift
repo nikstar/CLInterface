@@ -35,7 +35,7 @@ public final class Argument<T : ArgumentType> {
     /// - Parameter longName: Name for your option, e.g. "--output"
     /// - Parameter shortName: Alternative short name, e.g. "-o"
     /// - Parameter usage: Usage string, describing what this argument does. Shown to user in `--help` menu. If omitted, it won't be shown there
-    /// - Parameter default: Optional default value. If provided, it is safe to unwrap this property
+    /// - Parameter default: Optional default value
     public init(_ longName: String, _ shortName: String? = nil, usage: String? = nil, default: T.Base? = nil) {
         self.longName = longName
         self.shortName = shortName
@@ -50,7 +50,6 @@ public final class Argument<T : ArgumentType> {
         case (false, _):
             self.mode = .optional(default: `default`)
         }
-        print("\(longName) is \(mode)")
     }
     
     func register(with argumentParser: ArgumentParser) {

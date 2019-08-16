@@ -26,10 +26,10 @@ public final class PositionalArgument<T: BaseArgumentType> {
     /// - Parameter name: Shown in `--help` menu, e.g. "files"
     /// - Parameter usage: Usage string, describing these arguments. Shown to user in `--help` menu. If omitted, it won't be shown there
     /// - Parameter default: Optional default value. If omitted, default is empty array.
-    public init(name: String, usage: String? = nil, default: [T]? = nil) {
+    public init(name: String, usage: String? = nil, default: [T] = []) {
         self.name = name
         self.usage = usage
-        self.default = `default` ?? []
+        self.default = `default`
     }
     
     func register(with argumentParser: ArgumentParser) {

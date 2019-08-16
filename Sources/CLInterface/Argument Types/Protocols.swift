@@ -1,6 +1,6 @@
 import SPMUtility
 
-// Argument type is on of the types that can be represented by Argument (String, Int, or Bool, optional or not)
+// Argument type is one of the types that can be represented by Argument (String, Int, or Bool, optional or not)
 public protocol ArgumentType {
     associatedtype Base: SPMUtility.ArgumentKind & BaseArgumentType
 }

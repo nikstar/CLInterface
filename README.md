@@ -62,3 +62,5 @@ files          Files that will be compiled
 ```
 
 See [`ExampleSwiftc`](Sources/ExampleSwiftc/main.swift) for working example.
+
+See **Opusab**, my audiobook converter, for another [real-life example](/nikstar/opusab/blob/master/Sources/OpusabCore/Opusab.swift).

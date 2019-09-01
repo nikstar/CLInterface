@@ -2,7 +2,7 @@
 
 Swift 5.1 era argument parser
 
-[![Swift 5.1](https://img.shields.io/badge/swift-5-important)](#)
+[![Swift 5.1](https://img.shields.io/badge/swift-5.1-important)](#)
 [![platforms: macOS, Linux](https://img.shields.io/badge/platforms-macOS%20%7C%20Linux-lightgrey)](#)
 [![Swift Package Manager compatible](https://img.shields.io/badge/spm-compatible-brightgreen)](#)
 [![releases](https://img.shields.io/github/release/nikstar/CLInterface)](https://github.com/nikstar/CLInterface/releases)

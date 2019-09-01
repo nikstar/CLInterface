@@ -2,11 +2,11 @@
 
 Swift 5.1 era argument parser
 
-![Swift 5.1](https://img.shields.io/badge/swift-5.1-important)
-![Platforms](https://img.shields.io/badge/platforms-macOS%20%7C%20Linux-lightgrey)
-![Swift Package Manager](https://img.shields.io/badge/spm-compatible-brightgreen)
-![release](https://img.shields.io/github/release/nikstar/CLInterface)
-![GitHub](https://img.shields.io/github/license/nikstar/CLInterface)
+[![Swift 5.1](https://img.shields.io/badge/swift-5-important)](#)
+[![platforms: macOS, Linux](https://img.shields.io/badge/platforms-macOS%20%7C%20Linux-lightgrey)](#)
+[![Swift Package Manager compatible](https://img.shields.io/badge/spm-compatible-brightgreen)](#)
+[![releases](https://img.shields.io/github/release/nikstar/CLInterface)](https://github.com/nikstar/CLInterface/releases)
+[![MIT license](https://img.shields.io/github/license/nikstar/CLInterface)](LICENSE.md)
 
 `CLInterface` protocol should be implemented by a class or a struct that will represent command line interface of your program. Apart from required `description` property, it should contain `@Argument` and `@PositionalArgument` properties for any arguments you want. They will be set automatically after you call `parseArguments`.
 
@@ -14,7 +14,7 @@ Both optional and required arguments are supported. Use `default:` and optional 
 
 Use Swift package manager to add to your project: 
 ```swift
-        .package(url: "https://github.com/nikstar/CLInterface.git", from: "1.0.0"),
+        .package(url: "https://github.com/nikstar/CLInterface.git", from: "1.0.3"),
 ```
 
 **This is work in progress. PRs and suggestions are welcome!**

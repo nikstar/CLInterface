@@ -1,5 +1,7 @@
 # CLInterface
 
+> __This project is archived.__ I'm happy with how __CLInterface__ turned out; it's architecture includes extensive use of reflection to achieve exactly the API I wanted. Unfortunatly, soon after it's release, Apple came out with its own first-party [argument parser library](https://github.com/apple/swift-argument-parser) that has a very similar interface.
+
 Swift 5.1 era argument parser
 
 [![Swift 5.1](https://img.shields.io/badge/swift-5.1-important)](#)
@@ -16,8 +18,6 @@ Use Swift package manager to add to your project:
 ```swift
         .package(url: "https://github.com/nikstar/CLInterface.git", from: "1.0.3"),
 ```
-
-**This is work in progress. PRs and suggestions are welcome!**
 
 ## Example
 
